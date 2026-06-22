@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>РЕДУТ — воинский учёт под ключ за 1–2 дня. Постановка и сопровождение для организаций</title>
+<meta name="description" content="Постановка организации на воинский учёт под ключ за 1–2 дня. Готовый пакет документов: приказ, план работы, карточки формы № 10, журналы, сведения для военкомата. Защита от штрафа 350 000–400 000 ₽.">
+<style>
+  :root{
+    --bg:#0f1419;
+    --bg-soft:#161d26;
+    --surface:#1c2530;
+    --surface-2:#222d3a;
+    --line:#2c3947;
+    --text:#e8edf2;
+    --text-soft:#aebac7;
+    --text-mut:#7d8b9a;
+    --accent:#c8a04e;          /* муарово-золотой, деловой */
+    --accent-soft:#e0c285;
+    --danger:#d8543f;
+    --danger-soft:#e8806e;
+    --danger-bg:#2a1714;
+    --ok:#4fae7d;
+    --radius:14px;
+    --shadow:0 18px 50px rgba(0,0,0,.45);
+    --maxw:1120px;
+    --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--font);
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    font-size:17px;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  section{padding:78px 0}
+  h1,h2,h3{line-height:1.18;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:clamp(26px,3.4vw,38px);margin-bottom:14px}
+  .lead{color:var(--text-soft);font-size:18px;max-width:760px}
+  .eyebrow{
+    display:inline-block;font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--accent);font-weight:700;margin-bottom:16px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    padding:15px 30px;border-radius:11px;font-weight:700;font-size:16px;
+    cursor:pointer;border:none;transition:transform .15s ease,box-shadow .15s ease,background .15s ease;
+    text-align:center;
+  }
+  .btn-primary{background:linear-gradient(135deg,var(--accent),#a9863c);color:#1a1407;box-shadow:0 10px 28px rgba(200,160,78,.28)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(200,160,78,.4)}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent-soft)}
+  .btn-tg{background:#229ED9;color:#fff;box-shadow:0 10px 28px rgba(34,158,217,.3)}
+  .btn-tg:hover{transform:translateY(-2px);background:#2aa9e6}
+
+  /* ---------- HEADER / NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(15,20,25,.82);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;max-width:var(--maxw);margin:0 auto}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:18px;letter-spacing:-.01em}
+  .brand .mark{
+    width:34px;height:34px;border-radius:9px;flex:0 0 auto;
+    background:linear-gradient(135deg,var(--accent),#8d6f2e);
+    display:flex;align-items:center;justify-content:center;color:#1a1407;font-weight:900;font-size:17px;
+  }
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{color:var(--text-soft);font-size:15px;font-weight:600}
+  .nav-links a:hover{color:var(--text)}
+  .nav-cta{padding:10px 18px;font-size:14px}
+  .burger{display:none}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 460px at 78% -8%,rgba(200,160,78,.13),transparent 60%),
+      radial-gradient(700px 500px at 8% 110%,rgba(216,84,63,.10),transparent 60%),
+      var(--bg);
+    padding:84px 0 70px;
+  }
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:54px;align-items:center}
+  .hero h1{font-size:clamp(31px,4.7vw,52px);margin-bottom:20px}
+  .hero h1 .hl{color:var(--danger-soft);white-space:nowrap}
+  .hero .sub{font-size:19px;color:var(--text-soft);max-width:600px;margin-bottom:30px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px}
+  .hero-badges{display:flex;gap:22px;flex-wrap:wrap;color:var(--text-mut);font-size:14.5px}
+  .hero-badges span{display:flex;align-items:center;gap:8px}
+  .tick{color:var(--accent)}
+
+  .alarm-card{
+    background:linear-gradient(180deg,var(--danger-bg),#1b1412);
+    border:1px solid #4a2820;border-radius:var(--radius);
+    padding:30px 28px;box-shadow:var(--shadow);position:relative;
+  }
+  .alarm-card .tag{
+    display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--danger-soft);background:rgba(216,84,63,.12);
+    border:1px solid #5a2e24;border-radius:999px;padding:6px 13px;margin-bottom:18px;
+  }
+  .alarm-card .fine{font-size:46px;font-weight:800;color:#fff;line-height:1;letter-spacing:-.02em}
+  .alarm-card .fine small{display:block;font-size:15px;font-weight:600;color:var(--danger-soft);margin-top:9px;letter-spacing:0}
+  .alarm-card ul{list-style:none;margin-top:22px;display:grid;gap:11px}
+  .alarm-card li{display:flex;gap:11px;font-size:15px;color:var(--text-soft)}
+  .alarm-card li b{color:var(--text)}
+  .dot{color:var(--danger)}
+
+  /* ---------- GENERIC CARDS ---------- */
+  .section-soft{background:var(--bg-soft)}
+  .grid{display:grid;gap:22px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px 24px;transition:border-color .18s ease,transform .18s ease;
+  }
+  .card:hover{border-color:#3a4a5b;transform:translateY(-3px)}
+  .card h3{font-size:19px;margin-bottom:9px}
+  .card p{color:var(--text-soft);font-size:15.5px}
+  .ic{
+    width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;
+    margin-bottom:16px;font-size:22px;background:rgba(200,160,78,.12);border:1px solid #3b3520;
+  }
+  .ic.red{background:rgba(216,84,63,.12);border-color:#4a2820}
+
+  /* ---------- RISK SECTION ---------- */
+  .risk-head{max-width:780px;margin-bottom:38px}
+  .law-ref{font-size:13px;color:var(--text-mut);margin-top:4px;font-weight:600;letter-spacing:.02em}
+  .big-fine-band{
+    margin-top:30px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+    background:linear-gradient(180deg,var(--danger-bg),#191210);
+    border:1px solid #4a2820;border-radius:var(--radius);padding:24px 28px;
+  }
+  .big-fine-band .num{font-size:40px;font-weight:800;color:#fff;line-height:1}
+  .big-fine-band .txt{color:var(--text-soft);font-size:15px;flex:1;min-width:240px}
+
+  /* ---------- DELIVERABLES ---------- */
+  .deliver-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .deliver-item{
+    display:flex;gap:14px;align-items:flex-start;background:var(--surface);
+    border:1px solid var(--line);border-radius:12px;padding:17px 18px;
+  }
+  .deliver-item .chk{
+    flex:0 0 auto;width:26px;height:26px;border-radius:7px;background:rgba(79,174,125,.15);
+    border:1px solid #2c4d3c;color:var(--ok);display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;margin-top:2px;
+  }
+  .deliver-item b{font-size:15.5px}
+  .deliver-item span{display:block;color:var(--text-mut);font-size:13.5px;margin-top:2px}
+
+  /* ---------- STEPS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;counter-reset:s}
+  .step{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px 24px 26px}
+  .step .n{
+    counter-increment:s;position:absolute;top:-18px;left:24px;
+    width:44px;height:44px;border-radius:11px;background:linear-gradient(135deg,var(--accent),#8d6f2e);
+    color:#1a1407;font-weight:900;font-size:20px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 20px rgba(200,160,78,.3);
+  }
+  .step .n::after{content:counter(s)}
+  .step h3{margin-top:14px;font-size:19px}
+  .step p{color:var(--text-soft);font-size:15px;margin-top:7px}
+
+  /* ---------- PRICING ---------- */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  .plan{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px 26px;display:flex;flex-direction:column;position:relative;
+  }
+  .plan.featured{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 18px 50px rgba(200,160,78,.16);background:linear-gradient(180deg,#1f2731,var(--surface))}
+  .plan .pop{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--accent),#a9863c);color:#1a1407;
+    font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+    padding:6px 16px;border-radius:999px;white-space:nowrap;
+  }
+  .plan .pname{font-size:20px;font-weight:700;margin-bottom:6px}
+  .plan .pdesc{color:var(--text-mut);font-size:14px;min-height:40px;margin-bottom:16px}
+  .plan .price{font-size:38px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .plan .price small{font-size:16px;color:var(--text-mut);font-weight:600}
+  .plan .price .from{font-size:14px;color:var(--text-mut);font-weight:600;display:block;margin-bottom:2px}
+  .plan ul{list-style:none;margin:22px 0 26px;display:grid;gap:12px;flex:1}
+  .plan li{display:flex;gap:11px;font-size:15px;color:var(--text-soft)}
+  .plan li .pc{color:var(--accent);flex:0 0 auto;font-weight:800}
+  .plan li.off{color:var(--text-mut);opacity:.6}
+  .plan li.off .pc{color:var(--text-mut)}
+  .plan .btn{width:100%}
+
+  /* ---------- CALCULATOR ---------- */
+  .calc{
+    background:linear-gradient(180deg,var(--surface-2),var(--surface));
+    border:1px solid var(--line);border-radius:18px;padding:34px;box-shadow:var(--shadow);
+  }
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+  .field{margin-bottom:22px}
+  .field label{display:block;font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .seg{display:flex;gap:10px}
+  .seg button{
+    flex:1;padding:13px;border-radius:10px;border:1px solid var(--line);background:var(--bg-soft);
+    color:var(--text-soft);font-weight:700;font-size:15px;cursor:pointer;transition:all .15s ease;
+  }
+  .seg button.active[data-v="no"]{background:rgba(216,84,63,.16);border-color:var(--danger);color:var(--danger-soft)}
+  .seg button.active[data-v="yes"]{background:rgba(79,174,125,.15);border-color:var(--ok);color:#7bd0a4}
+  .calc input[type=number]{
+    width:100%;padding:14px 16px;border-radius:10px;border:1px solid var(--line);
+    background:var(--bg-soft);color:var(--text);font-size:16px;font-family:var(--font);
+  }
+  .calc input[type=number]:focus{outline:none;border-color:var(--accent)}
+  .calc-range{margin-top:10px}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .calc-result{
+    background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:26px;min-height:100%;
+  }
+  .calc-result .rlabel{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--text-mut);font-weight:700}
+  .calc-result .rbig{font-size:40px;font-weight:800;margin:8px 0 4px;line-height:1.05}
+  .calc-result .rbig.risk{color:var(--danger-soft)}
+  .calc-result .rbig.safe{color:#7bd0a4}
+  .calc-result .rsmall{color:var(--text-soft);font-size:14.5px}
+  .calc-compare{margin-top:20px;border-top:1px solid var(--line);padding-top:18px;display:grid;gap:12px}
+  .cc-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px}
+  .cc-row .k{color:var(--text-soft);font-size:14.5px}
+  .cc-row .v{font-weight:800;font-size:17px}
+  .cc-row .v.red{color:var(--danger-soft)}
+  .cc-row .v.gold{color:var(--accent-soft)}
+  .save-band{
+    margin-top:16px;background:rgba(79,174,125,.1);border:1px solid #2c4d3c;border-radius:10px;
+    padding:13px 15px;font-size:14.5px;color:#9bdcb9;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{border:1px solid var(--line);border-radius:12px;background:var(--surface);margin-bottom:12px;overflow:hidden}
+  .faq-q{
+    width:100%;text-align:left;background:none;border:none;color:var(--text);cursor:pointer;
+    padding:20px 22px;font-size:16.5px;font-weight:700;font-family:var(--font);
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  .faq-q .ar{color:var(--accent);font-size:22px;transition:transform .2s ease;flex:0 0 auto}
+  .faq-item.open .faq-q .ar{transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .28s ease}
+  .faq-a div{padding:0 22px 20px;color:var(--text-soft);font-size:15.5px}
+  .faq-a b{color:var(--text)}
+
+  /* ---------- FORM / CTA ---------- */
+  .cta-final{
+    background:
+      radial-gradient(700px 400px at 80% 0%,rgba(200,160,78,.12),transparent 60%),
+      var(--bg-soft);
+  }
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .lead-form{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:32px;box-shadow:var(--shadow)}
+  .lead-form .field{margin-bottom:16px}
+  .lead-form input,.lead-form textarea,.lead-form select{
+    width:100%;padding:14px 16px;border-radius:10px;border:1px solid var(--line);
+    background:var(--bg-soft);color:var(--text);font-size:15.5px;font-family:var(--font);
+  }
+  .lead-form input:focus,.lead-form textarea:focus,.lead-form select:focus{outline:none;border-color:var(--accent)}
+  .lead-form textarea{resize:vertical;min-height:84px}
+  .lead-form .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .or-tg{display:flex;align-items:center;gap:14px;margin:18px 0 0;color:var(--text-mut);font-size:14px}
+  .or-tg::before,.or-tg::after{content:"";height:1px;background:var(--line);flex:1}
+  .form-ok{display:none;background:rgba(79,174,125,.12);border:1px solid #2c4d3c;color:#9bdcb9;border-radius:10px;padding:14px 16px;font-size:15px;margin-bottom:14px}
+  .form-side h2{margin-bottom:16px}
+  .form-side ul{list-style:none;display:grid;gap:14px;margin-top:22px}
+  .form-side li{display:flex;gap:13px;align-items:flex-start;color:var(--text-soft);font-size:15.5px}
+  .form-side li .tick{flex:0 0 auto;margin-top:1px}
+
+  /* ---------- FOOTER / DISCLAIMER ---------- */
+  footer{background:var(--bg);border-top:1px solid var(--line);padding:46px 0 40px}
+  .foot-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:26px}
+  .disclaimer{font-size:12.5px;color:var(--text-mut);line-height:1.7;max-width:980px}
+  .disclaimer h4{color:var(--text-soft);font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;font-weight:700}
+  .disclaimer p{margin-bottom:8px}
+  .foot-legal{margin-top:24px;padding-top:20px;border-top:1px solid var(--line);color:var(--text-mut);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:980px){
+    .hero-grid,.calc-grid,.form-grid{grid-template-columns:1fr;gap:34px}
+    .g4{grid-template-columns:repeat(2,1fr)}
+    .steps,.plans,.g3{grid-template-columns:1fr}
+    .deliver-list{grid-template-columns:1fr}
+    .nav-links{display:none}
+    .nav-links.show{
+      display:flex;position:absolute;top:62px;left:0;right:0;flex-direction:column;gap:0;
+      background:var(--bg-soft);border-bottom:1px solid var(--line);padding:8px 0;
+    }
+    .nav-links.show a{padding:13px 22px;border-top:1px solid var(--line)}
+    .nav-links.show .nav-cta{margin:10px 22px}
+    .burger{display:flex;background:none;border:1px solid var(--line);border-radius:9px;width:42px;height:40px;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:20px}
+  }
+  @media(max-width:560px){
+    body{font-size:16px}
+    section{padding:56px 0}
+    .g2,.g4{grid-template-columns:1fr}
+    .lead-form .row2{grid-template-columns:1fr}
+    .hero .sub{font-size:17px}
+    .alarm-card .fine{font-size:38px}
+    .calc{padding:22px}
+    .lead-form{padding:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="mark">Р</span><span>РЕДУТ<span style="font-weight:600;color:var(--text-soft);font-size:13px;letter-spacing:0"> · воинский учёт под ключ</span></span></div>
+    <nav class="nav-links" id="navLinks">
+      <a href="#risk">Чем грозит</a>
+      <a href="#deliver">Что входит</a>
+      <a href="#plans">Цены</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#zayavka" class="btn btn-primary nav-cta">Оставить заявку</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Меню">☰</button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Постановка и сопровождение · 1–2 дня</span>
+      <h1>Воинский учёт обязателен с момента регистрации организации. Без него — штраф <span class="hl">350 000–400 000 ₽</span></h1>
+      <p class="sub">Поставим вашу организацию на воинский учёт «под ключ» за 1–2 рабочих дня. Подготовим полный пакет документов для военкомата — вам останется только подписать.</p>
+      <div class="hero-cta">
+        <a href="#zayavka" class="btn btn-primary">Поставить на учёт за 1–2 дня</a>
+        <a href="#calc" class="btn btn-ghost">Рассчитать риск штрафа</a>
+      </div>
+      <div class="hero-badges">
+        <span><span class="tick">✓</span> Готовые документы по приказу № 700</span>
+        <span><span class="tick">✓</span> Карточки формы № 10</span>
+        <span><span class="tick">✓</span> Сведения для военкомата</span>
+      </div>
+    </div>
+
+    <aside class="alarm-card">
+      <span class="tag"><span class="dot">●</span> Риск для организации</span>
+      <div class="fine">350 000–400 000 ₽
+        <small>штраф на юрлицо — ст. 21.1 и 21.2 КоАП РФ</small>
+      </div>
+      <ul>
+        <li><span class="dot">▪</span><span>Обязанность вести воинский учёт распространяется на <b>все организации</b> независимо от численности и формы собственности — ст. 8 ФЗ № 53-ФЗ, Положение № 719.</span></li>
+        <li><span class="dot">▪</span><span>С <b>мая 2025 года</b> работает <b>единый реестр воинского учёта</b> (реестр повесток): у организаций открыт личный кабинет, сведения о приёме, увольнении и изменениях сдаются электронно — пропуски видны военкомату при сверке.</span></li>
+        <li><span class="dot">▪</span><span>Реестр <b>не отменяет</b> внутренний учёт и карточки формы № 10 — бумаги по-прежнему нужны.</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- ===== RISK ===== -->
+<section id="risk" class="section-soft">
+  <div class="wrap">
+    <div class="risk-head">
+      <span class="eyebrow">Что грозит, если не вести учёт</span>
+      <h2>Отсутствие воинского учёта — это административное нарушение</h2>
+      <p class="lead">Контроль ведут военные комиссариаты. С 2023 года штрафы для организаций выросли в десятки раз, а запуск единого реестра сделал нарушения заметнее.</p>
+    </div>
+
+    <div class="grid g3">
+      <div class="card">
+        <div class="ic red">⚠</div>
+        <h3>350 000–400 000 ₽</h3>
+        <p>Штраф на организацию за непредставление списков граждан, подлежащих первоначальной постановке на воинский учёт.</p>
+        <div class="law-ref">Основание: ст. 21.1 КоАП РФ</div>
+      </div>
+      <div class="card">
+        <div class="ic red">⚠</div>
+        <h3>350 000–400 000 ₽</h3>
+        <p>Штраф на организацию за неоповещение граждан о вызове (повестке), в том числе в электронной форме, либо необеспечение явки.</p>
+        <div class="law-ref">Основание: ст. 21.2 КоАП РФ</div>
+      </div>
+      <div class="card">
+        <div class="ic red">⚠</div>
+        <h3>40 000–50 000 ₽</h3>
+        <p>Штраф на должностное лицо (руководителя) за непредставление сведений, необходимых для ведения воинского учёта.</p>
+        <div class="law-ref">Основание: ст. 21.4 КоАП РФ — на должностное лицо</div>
+      </div>
+    </div>
+
+    <div class="big-fine-band">
+      <div class="num">до 400 000 ₽</div>
+      <div class="txt">Один невыполненный пункт по ст. 21.1 или 21.2 КоАП РФ обходится организации дороже, чем годовое сопровождение воинского учёта. Запуск единого реестра повесток сделал пропуски в учёте легко выявляемыми при сверке.</div>
+      <a href="#calc" class="btn btn-ghost">Посчитать мой риск</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DELIVERABLES ===== -->
+<section id="deliver">
+  <div class="wrap">
+    <span class="eyebrow">Что вы получаете</span>
+    <h2>Полный пакет документов воинского учёта — готовый к подаче</h2>
+    <p class="lead" style="margin-bottom:34px">Мы готовим комплект внутренних и отчётных документов в соответствии с действующими НПА (ФЗ № 53-ФЗ, Положение № 719, приказ Минобороны № 700). Передаём в работу — вы подписываете.</p>
+
+    <div class="deliver-list">
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Приказ об организации воинского учёта</b><span>Назначение ответственного лица, порядок ведения</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>План работы по ведению воинского учёта на год</b><span>Документ, согласуемый с военкоматом</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Карточки гражданина — форма № 10</b><span>Приложение № 22 к приказу № 700, заменяет Т-2</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Должностная инструкция ответственного</b><span>Локальный документ по ВУ</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Положение о воинском учёте (ЛНА)</b><span>Внутренний локальный нормативный акт</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Журнал проверок осуществления ВУ</b><span>Приложение № 29 к приказу № 700</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Карточка учёта организации — форма № 18</b><span>Для подачи в военкомат</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Сведения о приёме и увольнении работников</b><span>Форма для уведомления военкомата (5 дней)</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Сведения для военкомата и сверки</b><span>Состав и сроки под ваш военкомат</span></div></div>
+      <div class="deliver-item"><span class="chk">✓</span><div><b>Картотека и инструкция по ведению</b><span>Как поддерживать учёт самостоятельно</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STEPS ===== -->
+<section class="section-soft">
+  <div class="wrap">
+    <span class="eyebrow">Как это работает</span>
+    <h2>Три шага — и учёт поставлен за 1–2 дня</h2>
+    <p class="lead" style="margin-bottom:54px">Без визитов и долгих согласований. Всё взаимодействие — онлайн.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n"></div>
+        <h3>Вы заполняете анкету</h3>
+        <p>Короткая анкета: данные организации, число сотрудников, реквизиты вашего военкомата. Занимает 10–15 минут.</p>
+      </div>
+      <div class="step">
+        <div class="n"></div>
+        <h3>Мы готовим пакет за 1–2 дня</h3>
+        <p>Формируем приказ, план, карточки формы № 10, журналы и сведения для военкомата под ваши данные и требования региона.</p>
+      </div>
+      <div class="step">
+        <div class="n"></div>
+        <h3>Вы подписываете и сдаёте</h3>
+        <p>Получаете готовый комплект и понятную инструкцию по подаче. По желанию — берём сопровождение на себя.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PRICING ===== -->
+<section id="plans">
+  <div class="wrap">
+    <span class="eyebrow">Пакеты и цены</span>
+    <h2>Выберите формат — разово или с сопровождением</h2>
+    <p class="lead" style="margin-bottom:46px">Цены фиксированные. Никаких скрытых доплат за «срочность» — стандартный срок и так 1–2 дня.</p>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="pname">Постановка под ключ</div>
+        <div class="pdesc">Разовая постановка организации на воинский учёт</div>
+        <div class="price"><span class="from">от</span>19 900 ₽</div>
+        <ul>
+          <li><span class="pc">✓</span> Полный пакет документов ВУ</li>
+          <li><span class="pc">✓</span> Карточки формы № 10 на сотрудников</li>
+          <li><span class="pc">✓</span> Приказ, план, журналы, ЛНА</li>
+          <li><span class="pc">✓</span> Сведения и форма № 18 для военкомата</li>
+          <li><span class="pc">✓</span> Инструкция по подаче</li>
+          <li class="off"><span class="pc">—</span> Ежемесячное сопровождение</li>
+        </ul>
+        <a href="#zayavka" class="btn btn-ghost" data-plan="Постановка под ключ">Заказать постановку</a>
+      </div>
+
+      <div class="plan featured">
+        <span class="pop">Выгоднее всего</span>
+        <div class="pname">Постановка + год сопровождения</div>
+        <div class="pdesc">Поставим на учёт и весь год ведём за вас</div>
+        <div class="price"><span class="from">от</span>59 900 ₽<small> / год</small></div>
+        <ul>
+          <li><span class="pc">✓</span> Всё из пакета «Постановка под ключ»</li>
+          <li><span class="pc">✓</span> Ведение учёта 12 месяцев</li>
+          <li><span class="pc">✓</span> Подготовка сведений при приёме/увольнении</li>
+          <li><span class="pc">✓</span> Контроль сроков сдачи в военкомат</li>
+          <li><span class="pc">✓</span> Поддержка по реестру повесток</li>
+          <li><span class="pc">✓</span> Актуализация при изменениях закона</li>
+        </ul>
+        <a href="#zayavka" class="btn btn-primary" data-plan="Постановка + год сопровождения">Выбрать этот пакет</a>
+      </div>
+
+      <div class="plan">
+        <div class="pname">Сопровождение</div>
+        <div class="pdesc">Ведём учёт у уже поставленной организации</div>
+        <div class="price"><span class="from">от</span>6 900 ₽<small> / мес</small></div>
+        <ul>
+          <li><span class="pc">✓</span> Ведение карточек формы № 10</li>
+          <li><span class="pc">✓</span> Сведения при приёме/увольнении</li>
+          <li><span class="pc">✓</span> Контроль сроков и сверок</li>
+          <li><span class="pc">✓</span> Поддержка по реестру повесток</li>
+          <li><span class="pc">✓</span> Консультации в течение месяца</li>
+          <li class="off"><span class="pc">—</span> Первичная постановка (оплачивается отдельно)</li>
+        </ul>
+        <a href="#zayavka" class="btn btn-ghost" data-plan="Сопровождение">Заказать сопровождение</a>
+      </div>
+    </div>
+    <p style="color:var(--text-mut);font-size:13.5px;margin-top:22px">Итоговая стоимость зависит от числа сотрудников и требований вашего военкомата. Точную цену назовём после короткой анкеты.</p>
+  </div>
+</section>
+
+<!-- ===== CALCULATOR ===== -->
+<section id="calc" class="section-soft">
+  <div class="wrap">
+    <span class="eyebrow">Калькулятор риска</span>
+    <h2>Сравните штраф с ценой услуги</h2>
+    <p class="lead" style="margin-bottom:36px">Ответьте на два вопроса — покажем ваш потенциальный риск по КоАП и сравним его со стоимостью постановки на учёт.</p>
+
+    <div class="calc">
+      <div class="calc-grid">
+        <div>
+          <div class="field">
+            <label>Ведёте ли вы воинский учёт в организации?</label>
+            <div class="seg" id="segVU">
+              <button type="button" data-v="no" class="active">Нет / не уверен</button>
+              <button type="button" data-v="yes">Да, ведём</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Сколько сотрудников в организации?</label>
+            <input type="number" id="empCount" min="1" max="5000" value="15">
+            <div class="calc-range">
+              <input type="range" id="empRange" min="1" max="250" value="15">
+            </div>
+          </div>
+          <p style="color:var(--text-mut);font-size:13px">Расчёт носит ориентировочный характер. Размер и основания штрафа в конкретном случае определяет военкомат и суд.</p>
+        </div>
+
+        <div class="calc-result" id="calcOut">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <div class="wrap" style="max-width:840px">
+    <span class="eyebrow">Частые вопросы</span>
+    <h2>Отвечаем на главное</h2>
+    <div style="margin-top:34px">
+
+      <div class="faq-item">
+        <button class="faq-q">Обязан ли ИП вести воинский учёт? <span class="ar">+</span></button>
+        <div class="faq-a"><div><b>Нет.</b> Обязанность вести воинский учёт работников распространяется только на организации (юридические лица). Индивидуальные предприниматели вести воинский учёт своих работников <b>не обязаны</b> — это подтверждено судебной практикой (Постановление Президиума ВАС РФ от 28.04.2009 № 13798/08). При этом сам ИП как военнообязанный гражданин лично уведомляет военкомат о своих изменениях — но это его личная обязанность, не связанная со статусом ИП.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">У нас всего несколько сотрудников. Учёт всё равно обязателен? <span class="ar">+</span></button>
+        <div class="faq-a"><div><b>Да.</b> Воинский учёт обязателен для <b>всех организаций независимо от численности</b> сотрудников и формы собственности. Исключений по числу работников закон не предусматривает — основание: ст. 8 ФЗ № 53-ФЗ и Положение о воинском учёте (ПП РФ № 719).</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Какой штраф грозит организации? <span class="ar">+</span></button>
+        <div class="faq-a"><div>Для организации (юрлица) — <b>350 000–400 000 ₽</b> по ст. 21.1 и ст. 21.2 КоАП РФ (непредставление списков граждан для постановки на учёт; неоповещение о вызове/повестке). Отдельно должностное лицо (руководитель) может быть оштрафовано на <b>40 000–50 000 ₽</b> по ст. 21.4 КоАП РФ за непредставление сведений для ведения учёта.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Запустили единый реестр повесток — значит, бумаги больше не нужны? <span class="ar">+</span></button>
+        <div class="faq-a"><div><b>Нужны.</b> Единый реестр воинского учёта (реестр повесток) добавляет электронный канал сдачи сведений, но <b>не отменяет</b> обязанность вести внутренний воинский учёт и карточки формы № 10. Организация по-прежнему обязана хранить картотеку и оформлять документы.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Что такое форма № 10 и почему не Т-2? <span class="ar">+</span></button>
+        <div class="faq-a"><div>Форма № 10 — это карточка гражданина, подлежащего воинскому учёту (приложение № 22 к приказу Минобороны № 700). С 08.01.2022 она <b>заменила личную карточку Т-2</b>. Мы готовим карточки именно по действующей форме № 10.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Сколько занимает постановка на учёт? <span class="ar">+</span></button>
+        <div class="faq-a"><div>Стандартный срок подготовки пакета документов — <b>1–2 рабочих дня</b> после получения заполненной анкеты. Дальше вы подписываете документы и подаёте их в военкомат (либо мы берём сопровождение на себя).</div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">Вы гарантируете, что военкомат примет документы без замечаний? <span class="ar">+</span></button>
+        <div class="faq-a"><div>Мы готовим документы в соответствии с действующим федеральным законодательством. Однако <b>окончательный состав, формы и сроки сдачи определяет территориальный военкомат</b> по месту учёта организации — региональные требования могут отличаться. Поэтому итоговую корректность проверяет военкомат, и мы не можем гарантировать приём без замечаний или полное отсутствие санкций. Подробнее — в дисклеймере внизу страницы.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FORM / CTA ===== -->
+<section id="zayavka" class="cta-final">
+  <div class="wrap form-grid">
+    <div class="form-side">
+      <span class="eyebrow">Оставить заявку</span>
+      <h2>Поставим вашу организацию на воинский учёт за 1–2 дня</h2>
+      <p class="lead">Оставьте контакты — пришлём короткую анкету и точную стоимость под вашу организацию. Или напишите сразу в Telegram.</p>
+      <ul>
+        <li><span class="tick">✓</span><span>Готовый пакет документов под ваш военкомат</span></li>
+        <li><span class="tick">✓</span><span>Фиксированная цена без скрытых доплат</span></li>
+        <li><span class="tick">✓</span><span>Срок 1–2 рабочих дня</span></li>
+        <li><span class="tick">✓</span><span>Сопровождение по желанию</span></li>
+      </ul>
+    </div>
+
+    <form class="lead-form" id="leadForm">
+      <div class="form-ok" id="formOk">Заявка отправлена. Мы свяжемся с вами в ближайшее время.</div>
+      <div class="field">
+        <label for="fName" style="font-size:14px;color:var(--text-soft);font-weight:600">Ваше имя</label>
+        <input id="fName" name="name" type="text" placeholder="Как к вам обращаться" required>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label for="fPhone" style="font-size:14px;color:var(--text-soft);font-weight:600">Телефон</label>
+          <input id="fPhone" name="phone" type="tel" placeholder="+7 ___ ___-__-__" required>
+        </div>
+        <div class="field">
+          <label for="fEmail" style="font-size:14px;color:var(--text-soft);font-weight:600">E-mail</label>
+          <input id="fEmail" name="email" type="email" placeholder="you@company.ru">
+        </div>
+      </div>
+      <div class="field">
+        <label for="fPlan" style="font-size:14px;color:var(--text-soft);font-weight:600">Интересующий пакет</label>
+        <select id="fPlan" name="plan">
+          <option>Постановка под ключ</option>
+          <option>Постановка + год сопровождения</option>
+          <option>Сопровождение</option>
+          <option>Пока не определился — нужна консультация</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fMsg" style="font-size:14px;color:var(--text-soft);font-weight:600">Комментарий (необязательно)</label>
+        <textarea id="fMsg" name="message" placeholder="Число сотрудников, ваш военкомат, вопросы"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%">Отправить заявку</button>
+      <div class="or-tg">или</div>
+      <a href="https://t.me/redutuchet_bot" target="_blank" rel="noopener" class="btn btn-tg" style="width:100%;margin-top:14px">✈ Написать в Telegram</a>
+      <p style="color:var(--text-mut);font-size:12px;margin-top:14px;text-align:center">Нажимая «Отправить», вы соглашаетесь на обработку персональных данных.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== FOOTER / DISCLAIMER ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="brand"><span class="mark">Р</span><span>РЕДУТ<span style="font-weight:600;color:var(--text-soft);font-size:13px;letter-spacing:0"> · воинский учёт под ключ</span></span></div>
+      <a href="#zayavka" class="btn btn-primary nav-cta">Оставить заявку</a>
+    </div>
+
+    <div class="disclaimer">
+      <h4>Важная информация об услуге</h4>
+      <p><b>Срез актуальности.</b> Информация на странице подготовлена на основании законодательства РФ, действующего по состоянию на июнь 2026 года. Законодательство о воинском учёте меняется часто; перед подачей документов проверяйте актуальность редакции нормативных правовых актов.</p>
+      <p><b>Итоговая проверка военкоматом.</b> Формы, состав и сроки сдачи документов могут отличаться по требованию территориального военного комиссариата. Окончательный состав и правильность документов определяет военкомат по месту учёта организации. Исполнитель не гарантирует приёма документов конкретным военкоматом без замечаний и не гарантирует отсутствия административных санкций.</p>
+      <p><b>Региональная специфика.</b> Требования и сроки (в том числе по карточке учёта организации — форме № 18) различаются по регионам и конкретным военкоматам и подлежат уточнению по месту учёта организации.</p>
+      <p><b>Предел ответственности.</b> Услуга носит информационно-методический и организационно-технический характер (подготовка документов) и не является юридической помощью. Ответственность за достоверность переданных исходных данных и за итоговую подачу в военкомат несёт заказчик. Ответственность исполнителя ограничивается стоимостью услуги; исполнитель не отвечает за административные штрафы заказчика.</p>
+      <p><b>Распределение ролей.</b> Подписантом и ответственным лицом по воинскому учёту перед военкоматом остаётся руководитель организации-заказчика; исполнитель действует как технический помощник по подготовке документов. Услуга не связана с освобождением или отсрочкой от призыва/мобилизации и не влияет на решения военкомата в отношении конкретных граждан.</p>
+      <p style="margin-top:10px">Правовые основания, упомянутые на странице: ст. 8 ФЗ от 28.03.1998 № 53-ФЗ; Положение о воинском учёте (ПП РФ от 27.11.2006 № 719); приказ Минобороны РФ от 22.11.2021 № 700 (форма № 10); ст. 21.1, 21.2, 21.4 КоАП РФ.</p>
+    </div>
+
+    <div class="foot-legal">
+      <span>© 2026 РЕДУТ — воинский учёт под ключ. Подготовка документов для организаций.</span>
+      <span>Цены ориентировочные, не являются публичной офертой.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---- Burger menu ----
+  var burger = document.getElementById('burger');
+  var navLinks = document.getElementById('navLinks');
+  if(burger){
+    burger.addEventListener('click', function(){ navLinks.classList.toggle('show'); });
+    navLinks.addEventListener('click', function(e){
+      if(e.target.tagName === 'A') navLinks.classList.remove('show');
+    });
+  }
+
+  // ---- FAQ accordion ----
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var open = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(o){
+        o.classList.remove('open');
+        o.querySelector('.faq-a').style.maxHeight = null;
+      });
+      if(!open){
+        item.classList.add('open');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // ---- Pricing -> form plan prefill ----
+  document.querySelectorAll('[data-plan]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sel = document.getElementById('fPlan');
+      if(sel){
+        var val = btn.getAttribute('data-plan');
+        for(var i=0;i<sel.options.length;i++){
+          if(sel.options[i].text === val){ sel.selectedIndex = i; break; }
+        }
+      }
+    });
+  });
+
+  // ---- Calculator ----
+  var FINE_MIN = 350000, FINE_MAX = 400000;     // ст. 21.1 / 21.2 КоАП, юрлицо
+  var OFFICIAL_MIN = 40000, OFFICIAL_MAX = 50000; // ст. 21.4, должностное лицо
+  var SERVICE_PRICE = 19900;                     // от, "Постановка под ключ"
+
+  var vu = 'no';
+  var segBtns = document.querySelectorAll('#segVU button');
+  var empCount = document.getElementById('empCount');
+  var empRange = document.getElementById('empRange');
+  var out = document.getElementById('calcOut');
+
+  function fmt(n){ return n.toLocaleString('ru-RU') + ' ₽'; }
+
+  function render(){
+    var n = parseInt(empCount.value,10);
+    if(isNaN(n) || n < 1) n = 1;
+    if(n > 5000) n = 5000;
+
+    var html = '';
+    if(vu === 'no'){
+      html += '<div class="rlabel">Потенциальный риск для организации</div>';
+      html += '<div class="rbig risk">' + fmt(FINE_MIN) + ' – ' + fmt(FINE_MAX) + '</div>';
+      html += '<div class="rsmall">Штраф на юрлицо по ст. 21.1 и 21.2 КоАП РФ. Дополнительно должностное лицо — ' + fmt(OFFICIAL_MIN) + ' – ' + fmt(OFFICIAL_MAX) + ' по ст. 21.4 КоАП РФ.</div>';
+
+      html += '<div class="calc-compare">';
+      html += '<div class="cc-row"><span class="k">Риск штрафа (юрлицо)</span><span class="v red">до ' + fmt(FINE_MAX) + '</span></div>';
+      html += '<div class="cc-row"><span class="k">Постановка под ключ</span><span class="v gold">от ' + fmt(SERVICE_PRICE) + '</span></div>';
+      html += '</div>';
+
+      var save = FINE_MAX - SERVICE_PRICE;
+      html += '<div class="save-band">Поставить организацию на учёт примерно в <b>' + Math.round(FINE_MAX / SERVICE_PRICE) + ' раз дешевле</b>, чем максимальный штраф. Разница в вашу пользу — до ' + fmt(save) + '.</div>';
+    } else {
+      html += '<div class="rlabel">Статус</div>';
+      html += '<div class="rbig safe">Учёт ведётся</div>';
+      html += '<div class="rsmall">Если воинский учёт ведётся корректно и сведения сдаются в срок, риск штрафа по ст. 21.1 / 21.2 КоАП РФ (350 000–400 000 ₽) минимален.</div>';
+      html += '<div class="calc-compare">';
+      html += '<div class="cc-row"><span class="k">Сотрудников на учёте</span><span class="v gold">' + n + '</span></div>';
+      html += '<div class="cc-row"><span class="k">Сопровождение</span><span class="v gold">от ' + fmt(6900) + ' / мес</span></div>';
+      html += '</div>';
+      html += '<div class="save-band">Возьмём ведение учёта на себя: контроль сроков, карточки формы № 10, сведения в военкомат и поддержку по реестру повесток.</div>';
+    }
+    out.innerHTML = html;
+  }
+
+  segBtns.forEach(function(b){
+    b.addEventListener('click', function(){
+      segBtns.forEach(function(x){ x.classList.remove('active'); });
+      b.classList.add('active');
+      vu = b.getAttribute('data-v');
+      render();
+    });
+  });
+  empCount.addEventListener('input', function(){
+    var v = parseInt(empCount.value,10);
+    if(!isNaN(v)){ empRange.value = Math.min(250, Math.max(1, v)); }
+    render();
+  });
+  empRange.addEventListener('input', function(){
+    empCount.value = empRange.value;
+    render();
+  });
+  render();
+
+  // ---- Lead form -> Telegram-бот (без бэкенда; лид захватывает @redutuchet_bot) ----
+  var form = document.getElementById('leadForm');
+  if(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var ok = document.getElementById('formOk');
+      ok.textContent = 'Заявка принята! Открываем Telegram — там мы сразу ответим и подберём пакет под вашу компанию.';
+      ok.style.display = 'block';
+      ok.scrollIntoView({behavior:'smooth', block:'center'});
+      setTimeout(function(){ window.location.href = 'https://t.me/redutuchet_bot'; }, 1400);
+    });
+  }
+})();
+</script>
+</body>
+</html>
